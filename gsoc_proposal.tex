@@ -1,0 +1,108 @@
+\documentclass[12]{article}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{bm}
+\begin{document}
+
+\begin{titlepage}
+\title{
+	\textbf{Google Summer of Code Application}\\~\\
+	Trace Estimation of Matrix on Analytic Functions such as Matrix Inverse and Log-Determinant
+}	
+
+\author{Akshay Jain}
+\date{}
+\maketitle
+\tableofcontents
+\end{titlepage}
+
+\section{Abstract}
+
+This project will be concerned with creating a Trace Estimation package for Julia language. The package will include stochastic trace estimation methods such as \textit{Hutchinson}, \textit{Chebyshev Polynomial}, \textit{Lanczos Quadrature} and \textit{Gauss-Radau Quadrature} methods, with strict bounds, for some symmetric positive definite or positive semi-definite matrix $A$ on some analytic function $f(A)$. This package will also include \textit{Diagonal Approximation} and \textit{Hierarchical Probing} methods especially for calculating trace of matrix inverse of large sparse matrix by generating an approximate inverse (i.e, preconditioner) (via \textit{Sparse Approximate Inverse} technique). I will also explore the implementation of \textit{Hadamard Matrices}, \textit{mutually unbiased bases} and some machine learning techniques for random vector sampling. The methods developed during the course of this project will be rigorously tested against actual values, documented and continuously updated on GitHub.
+
+\section{About Me}
+\bigskip
+\textbf{Name} Akshay Jain\\~\\
+\textbf{Location} Gandhinagar, India (UTC+5:30)\\~\\    
+\textbf{University} Dhirubhai Ambani Institute of Information and Communication Technology (DA-IICT), Gandhinagar\\~\\
+\textbf{Degree} Masters in Information Technology\\~\\
+\textbf{Email} \href{mailto:zen4akshay@gmail.com}{zen4akshay@gmail.com}\\~\\
+\textbf{GitHub} \url{https://github.com/luca-aki}\\~\\
+\textbf{GSoC Organization} The Julia Language\\~\\
+\textbf{GSoC Mentors} Mohamed Tarek and Simon Byrne\\
+
+Hello! I am a highly motivated first year M.Sc. Information Technology student from India. I have a Bachelor degree in Mathematics with a minor in Physics. My work interest lies in Computational Mathematics, Data Science and Artificial Intelligence. I have a strong academic background in Linear Algebra, Numerical Analysis, Real Analysis and Statistics along with an aptitude for reading science journals and research papers. I am efficient at writing code in C/C++, Java, R and Julia. I have been using Julia for practicing data analysis for a while and recently started contributing to it. I am excited to work with and contribute to the Julia community. 
+
+\section{Introduction}
+
+Many scientific applications require computation of trace of matrix functions, for instance, calculating \textit{Spectral Density} in solid state physics, \textit{Log-determinant} in machine learning, \textit{Estrada Index} in computational biology and chemical graph theory. Along with that, \textit{trace of matrix inverse} is employed in multitude of applications, such as in Lattice Quantum Chromodynamics. 
+
+For a symmetric real matrix $A \in \mathbb{R}^{n \times n}$ with eigen-decomposition $A = U\Lambda U^T$, where $\Lambda = diag(\lambda_1,...,\lambda_n)$, trace of matrix function $f(A)$ is given by
+$$tr(f(A)) = \sum^n_{i=1}f(\lambda_i)$$
+Although trivial, it is a computationally expensive task to calculate complete eigen-decomposition of a large matrix. Since 1989, several algorithms have been proposed that tackle this problem by estimating the trace of matrix without doing the complete eigen-decomposition or solving $f(A)$. Many of these algorithms including Hutchinson, Hybrid Chebysev Polynomial and Stochastic Lanczos Quadrature use Monte Carlo simulations $(\frac{1}{M}\sum^M_{i=1} \textbf{z}^T_iA\textbf{z}_i$, where $\textbf{z}_i$ are random sample vectors$)$ to estimate trace of matrix function. These algorithms are very efficient at finding trace of matrix function including matrix inverse for symmetric positive definite matrices with low condition number. Detailed read on trace estimation applications by Ubaru and Saad\cite{ubaru2017applications}.
+
+\section{Summary of Proposed Work}
+
+I would like to propose and develop a Trace Estimation (\textit{TraceEstimation.jl}) package for Julia language. It will be a standalone package, which will work in consonance with other Julia packages. This package will contain several stochastic trace estimation algorithms such as \textit{Hutchinson} method\cite{hutchinson1989stochastic}, \textit{Chebyshev Polynomial} method\cite{han2015large}, \textit{Lanczos Quadrature} method\cite{ubaru2017fast} and \textit{Gauss-Radau Quadrature} method\cite{bai1996some}. These methods will be available to estimate the trace of a matrix function $f(A)$ without explicitly calculating the function on the matrix or doing eigen-decomposition. They will also include variance analysis, bounds for number of iterations, and strict bounds\cite{roosta2015improved} for the estimated trace along with the resulting expected value. All of these methods will be implemented keeping abstraction in mind allowing any \textit{type} of symmetric positive definite or positive semi-definite matrix, for instance dense, sparse, cu, etc, of any \textit{eltype}, on some user supplied analytic function $f$, to be processed. (Note: In case of positive semi-definite matrix, with some eigenvalues equal to zero, it is not possible to evaluate some functions like matrix inverse.)
+
+I also intend to develop a \textit{Chebyshev-Hutchinson} hybrid algorithm that combines accuracy of modified Chebysev method\cite{meurant2009estimates} with Hutchinson method's Monte Carlo simulations to achieve faster convergence rates for large condition number matrices. For further improvements in accuracy, I will incorporate \textit{Hadamard} matrices\cite{fika2017stochastic} for selection of sample vectors $\textbf{z}_i$ in calculation of $\textbf{z}^T_iA\textbf{z}_i$ for Hutchinson method. Similarly, the accuracy of quadrature methods can be increased with \textit{mutually unbiased bases} technique\cite{fitzsimons2016improved} to sample vectors. This technique helps reduce \textit{RMS} error over large sample sizes.       
+
+TraceEstimation.jl package will also contain a non-stochastic \textit{Diagonal Approximation} algorithm\cite{wu2016estimating} especially for estimating trace of matrix inverse for large sparse matrix. This method will generate or accept a preconditioner that will be an approximate inverse of the matrix. The diagonal of this preconditioner will help interpolate the trace of matrix inverse. Furthermore, with a few modifications in the approximation stage of preconditioner, this algorithm will be able to estimate trace of any given analytic function $f$ on a large sparse matrix. A Monte Carlo approach to \textit{Sparse Approximate Inverse Matrix (SPAI)}\cite{strassburg2013monte} is also proposed. This will act as a fast stochastic method to generate preconditioner for the Diagonal Approximation routine.
+
+Each tool developed will go through a rigorous testing process against the actual values, and the unit-tests will be made available with the package. Finally, the package will be released for Julia 1.1 and the latest nightly release, with  documented code and a full usage documentation. I will also include a chart showing accuracy of different trace estimators for different kind of matrices.    
+\subsection{Stretch Goals}
+Once I am done with implementing, testing and documenting the above proposed tools, I will head on to implement \textit{Hierarchical Probing} algorithm\cite{stathopoulos2013hierarchical} for $tr(A^{-1})$ for very large sparse matrices used in LQCD. This probing technique effectively exploits the structure of given sparse matrix and attains significant speedup over stochastic methods.
+
+Finally, if time permits, I would love to explore and implement a trace estimation tool that uses machine learning for probing sample vectors. It is demonstrated that precision of trace estimation using $O(10)$ probing vectors is similar to that of $O(10000)$ random noise vectors\cite{yoon2016estimation}.
+
+\section{Relevant Contributions and Experience}
+
+Following are the contributions directly related to this project:\\~\\     
+1. \textbf{TraceEstimation.jl} (\url{https://github.com/luca-aki/TraceEstimation.jl}) This is the main repository where I will publish the latest work on the project.\\
+2. \textbf{Hutchinson Estimator and Diagonal Approximation} (\url{https://github.com/luca-aki/TraceEstimation.jl/pull/5}) An implementation of Hutchinson trace estimation method and a related Diagonal Approximation algorithm for $tr(A^{-1})$.\\
+3. \textbf{Lanczos Quadrature} (\url{https://github.com/luca-aki/TraceEstimation.jl/pull/6}) Implementation of Lanczos iterative method and a basic Stochastic Lanczos Quadrature method for $tr(f(A))$.\\~\\
+Following contributions are not directly related to this project:\\~\\
+1. \textbf{TestFunctions.jl} (\url{https://github.com/luca-aki/TestFunctions.jl}) A Julia package for optimization test functions that I work on my leisure time as a hobby and to learn more about optimization, testing, and plotting in Julia.\\~\\
+\textbf{Experience} Along with an academic experience in Linear Algebra, Numerical Analysis and Statistics. I have also taken courses in Algorithm Design, Mathematical modeling, Complex Analysis, Data Analysis, and Machine learning. I am well versed at translating algorithms into efficient code. I have a good understanding of object oriented programming and related concepts. I also happen to have a good experience in video-game design and game intelligence programming using {C\#/Unity Engine}.      
+
+
+\section{Tasks Timeline}               
+
+I will be dividing the project into four phases for matching the GSoC evaluation scheme. I will be dedicating at minimum 35-40 hours a week to this project and I will work during weekends as well.
+\begin{center}
+\begin{tabular}{||p{10.5cm} | c||}
+\hline
+\textbf{Task} & \textbf{Duration} \\
+\hline \hline
+Community Bonding Period & \\
+1.\,Interact with selected students and mentors. Learn about their project and tell them about mine. & 1 Week\\
+2.\,Gather requirements, create use cases and do research work for Trace Estimation package. & 2 Weeks\\  
+\hline\hline
+Phase 1 & \\
+3.\,Develop and test Chebyshev Polynomial method. & 2 Weeks\\
+4.\,Re-factor hutchinson.jl to work with supplied functions and implement Hadamard matrices. & 1 Week \\
+5.\,Complete Lanczos Quadrature method with improvement in stochastic bounds. & 1 Week\\
+\hline\hline
+Phase 2 & \\
+6.\,Develop and test Hybrid Chebyshev-Hutchinson method. & 2 Weeks\\
+7.\,Develop and test Gauss-Radau Quadrature method. & 1 Week\\
+8.\,Finish any backlogs. & 1 Week\\
+\hline\hline
+Phase 3 & \\
+9.\,Develop and test Diagonal Approximation method. & 1 Week\\
+10.\,Develop and test SPAI for Diagonal Approximation. & 1 Week\\
+11.\,Finish documentation and do stress testing of TraceEstimation.jl. & 2 Weeks\\
+\hline\hline
+Work on stretch goals. & -\\
+\hline\hline
+\end{tabular}
+\end{center} 
+\bigskip
+\bigskip
+\bigskip
+\section{Post-GSoC}
+After completion of GSoC, I plan to complete my education and continue working with Julia community. In the future, I would like to work on Differential Equations packages, in JuliaDiffEq, (as it was one of my preference) and FluxML. 
+
+\bibliographystyle{unsrt}
+\bibliography{gsoc_proposal}
+\end{document}

@@ -1,0 +1,84 @@
+\begin{thebibliography}{10}
+
+\bibitem{ubaru2017applications}
+Shashanka Ubaru and Yousef Saad.
+\newblock Applications of trace estimation techniques.
+\newblock In {\em International Conference on High Performance Computing in
+  Science and Engineering}, pages 19--33. Springer, 2017.
+
+\bibitem{hutchinson1989stochastic}
+MF~Hutchinson.
+\newblock A stochastic estimator of the trace of the influence matrix for
+  laplacian smoothing splines.
+\newblock {\em Communications in Statistics-Simulation and Computation},
+  18(3):1059--1076, 1989.
+
+\bibitem{han2015large}
+Insu Han, Dmitry Malioutov, and Jinwoo Shin.
+\newblock Large-scale log-determinant computation through stochastic chebyshev
+  expansions.
+\newblock In {\em International Conference on Machine Learning}, pages
+  908--917, 2015.
+
+\bibitem{ubaru2017fast}
+Shashanka Ubaru, Jie Chen, and Yousef Saad.
+\newblock Fast estimation of tr(f(a)) via stochastic lanczos quadrature.
+\newblock {\em SIAM Journal on Matrix Analysis and Applications},
+  38(4):1075--1099, 2017.
+
+\bibitem{bai1996some}
+Zhaojun Bai, Gark Fahey, and Gene Golub.
+\newblock Some large-scale matrix computation problems.
+\newblock {\em Journal of Computational and Applied Mathematics},
+  74(1-2):71--89, 1996.
+
+\bibitem{roosta2015improved}
+Farbod Roosta-Khorasani and Uri Ascher.
+\newblock Improved bounds on sample size for implicit matrix trace estimators.
+\newblock {\em Foundations of Computational Mathematics}, 15(5):1187--1212,
+  2015.
+
+\bibitem{meurant2009estimates}
+G{\'e}rard Meurant.
+\newblock Estimates of the trace of the inverse of a symmetric matrix using the
+  modified chebyshev algorithm.
+\newblock {\em Numerical Algorithms}, 51(3):309--318, 2009.
+
+\bibitem{fika2017stochastic}
+Paraskevi Fika and Christos Koukouvinos.
+\newblock Stochastic estimates for the trace of functions of matrices via
+  hadamard matrices.
+\newblock {\em Communications in Statistics-Simulation and Computation},
+  46(5):3491--3503, 2017.
+
+\bibitem{fitzsimons2016improved}
+Jack~K Fitzsimons, Michael~A Osborne, Stephen~J Roberts, and Joseph~F
+  Fitzsimons.
+\newblock Improved stochastic trace estimation using mutually unbiased bases.
+\newblock {\em arXiv preprint arXiv:1608.00117}, 2016.
+
+\bibitem{wu2016estimating}
+Lingfei Wu, Jesse Laeuchli, Vassilis Kalantzis, Andreas Stathopoulos, and
+  Efstratios Gallopoulos.
+\newblock Estimating the trace of the matrix inverse by interpolating from the
+  diagonal of an approximate inverse.
+\newblock {\em Journal of Computational Physics}, 326:828--844, 2016.
+
+\bibitem{strassburg2013monte}
+J~Stra{\ss}burg and Vassil~N Alexandrov.
+\newblock A monte carlo approach to sparse approximate inverse matrix
+  computations.
+\newblock {\em Procedia Computer Science}, 18:2307--2316, 2013.
+
+\bibitem{stathopoulos2013hierarchical}
+Andreas Stathopoulos, Jesse Laeuchli, and Kostas Orginos.
+\newblock Hierarchical probing for estimating the trace of the matrix inverse
+  on toroidal lattices.
+\newblock {\em SIAM Journal on Scientific Computing}, 35(5):S299--S322, 2013.
+
+\bibitem{yoon2016estimation}
+Boram Yoon.
+\newblock Estimation of matrix trace using machine learning.
+\newblock {\em arXiv preprint arXiv:1606.05560}, 2016.
+
+\end{thebibliography}
